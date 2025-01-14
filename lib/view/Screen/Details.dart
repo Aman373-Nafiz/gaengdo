@@ -13,7 +13,7 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var Photos = Get.put(PhotoController());
-  
+
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -45,14 +45,21 @@ class Details extends StatelessWidget {
                   try {
                     Photos.savePhoto(imageURL);
                   } catch (e) {
-                   Get.snackbar("Sorry", "Picture not saved");
-                   print("${e.toString()}");
+                    Get.snackbar("Sorry", "Picture not saved");
+                    print("${e.toString()}");
                   }
                 },
               ),
               IconButton(
                 icon: Icon(Icons.share),
-                onPressed: () {},
+                onPressed: () async {
+                  try {
+                    Photos.ShareImage(imageURL);
+                  } catch (e) {
+                    Get.snackbar("Sorry", "Picture not shared");
+                    print("${e.toString()}");
+                  }
+                },
               ),
             ],
           ),

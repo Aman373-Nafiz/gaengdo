@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
+import 'package:share_plus/share_plus.dart';
 class PhotoController extends GetxController {
   Future<bool> _handlePermissions() async {
     if (Platform.isAndroid) {
@@ -39,25 +39,22 @@ class PhotoController extends GetxController {
 
   Future<void> savePhoto(String imageUrl) async {
     try {
-      // Check permissions first
+
       bool hasPermission = await _handlePermissions();
       if (!hasPermission) return;
 
-      
-
-      // Download image
       final response = await http.get(Uri.parse(imageUrl));
       if (response.statusCode != 200) {
         throw Exception('Download failed');
       }
 
-      // Create directory if it doesn't exist
+
       Directory? directory = await getExternalStorageDirectory();
       if (directory == null) {
         directory = await getTemporaryDirectory();
       }
       
-      // Save image with unique name
+    
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final file = File('${directory.path}/image_$timestamp.jpg');
       await file.writeAsBytes(response.bodyBytes);
@@ -69,7 +66,7 @@ class PhotoController extends GetxController {
         albumName: "PhotoView"
       );
 
-      // Close loading dialog
+      
       if (Get.isDialogOpen == true) {
         Get.back();
       }
@@ -107,4 +104,97 @@ class PhotoController extends GetxController {
       );
     }
   }
+  
+  Future<void> ShareImage(String imageUrl) async {
+    try {
+      final response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode != 200) {
+        throw Exception('Download failed');
+      }
+
+      // Get temporary directory to save image
+      final directory = await getTemporaryDirectory();
+      final imagePath = '${directory.path}/share_image_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final imageFile = File(imagePath);
+      
+      // Save image temporarily
+      await imageFile.writeAsBytes(response.bodyBytes);
+
+      // Close loading dialog
+      if (Get.isDialogOpen == true) {
+        Get.back();
+      }
+
+      // Share image
+      await Share.shareXFiles(
+        [XFile(imagePath)],
+        text: 'Check out this image!',
+      );
+
+      // Clean up temporary file
+      if (await imageFile.exists()) {
+        await imageFile.delete();
+      }
+
+    } catch (e) {
+      if (Get.isDialogOpen == true) {
+        Get.back();
+      }
+      
+      Get.snackbar(
+        "Error", 
+        "Couldn't share the image",
+        backgroundColor: Colors.red,
+        colorText: BgColor,
+        duration: Duration(seconds: 2),
+      );
+      print("Share error: $e");
+    }
+  }
+
+//   Future<void>ShareImage(String Imageurl) async{
+//     try{     
+//        final directory = await getTemporaryDirectory();
+//       final timestamp = DateTime.now().millisecondsSinceEpoch;
+// var path = '${directory.path}/image_$timestamp.jpg';
+//       //final file = File(path);
+//       final result = await Share.shareXFiles([XFile(path)], text: 'Great picture');
+
+// if (result.status == ShareResultStatus.success) {
+//     print('Thank you for sharing the picture!');
+//      Get.snackbar(
+//         "Thank you", 
+//         "for sharing the picture!",
+//         backgroundColor: gold,
+//         colorText: BgColor,
+//         duration: Duration(seconds: 3),
+//       );
+// }
+//     }
+//     catch(e){
+//  Get.snackbar(
+//         "Shared Failed!", 
+//         "Picture was not shared",
+//         backgroundColor: gold,
+//         colorText: BgColor,
+//         duration: Duration(seconds: 3),
+//       );
+//     }
+//      final response = await http.get(Uri.parse(Imageurl));
+//       if (response.statusCode != 200) {
+//         throw Exception('Download failed');
+//       }
+// final directory = await getTemporaryDirectory();
+// final timestamp = DateTime.now().millisecondsSinceEpoch;
+// var path = '${directory.path}/image_$timestamp.jpg';
+//       final file = File(path);
+//       await file.writeAsBytes(response.bodyBytes);
+//         await Share.shareXFiles(
+//         [XFile(path)],
+//         text: 'Check out this image!',
+//       );
+
+     
+
+// }
 }
