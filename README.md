@@ -1,16 +1,25 @@
 # gaengdo
 
-A new Flutter project.
+Gaengdo is a Flutter project designed to display a gallery of photos fetched from the Unsplash API. It allows users to browse photos, view them in full-screen mode with zoom functionality, save them to the local gallery, and share them. The project focuses on creating a user-friendly and production-ready application.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- Photo Gallery:
 
-A few resources to get you started if this is your first Flutter project:
+> • Fetches and displays photos from the Unsplash API.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+> • Supports infinite scroll for seamless browsing.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Full-Screen View:
+
+> • Users can tap on a photo to view it in full screen.
+
+> • Includes pinch-to-zoom functionality.
+
+- Save Photos:
+
+> • Allows saving photos to the local gallery.
+
+- Share Photos:
+
+> • Enables sharing photos directly from the app.
