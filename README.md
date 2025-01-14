@@ -50,6 +50,8 @@ Gaengdo is a Flutter project designed to display a gallery of photos fetched fro
 
      
 
+
+## Usage
 ### Gallery
 - Open the app to browse photos displayed in a scrollable gallery.
 - Scroll down to load more photos (infinite scroll).
