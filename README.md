@@ -48,7 +48,7 @@ Gaengdo is a Flutter project designed to display a gallery of photos fetched fro
    ```bash
    flutter run
 
-       ## Usage
+     
 
 ### Gallery
 - Open the app to browse photos displayed in a scrollable gallery.
@@ -64,7 +64,7 @@ Gaengdo is a Flutter project designed to display a gallery of photos fetched fro
 ### Share Photos
 - Tap the share button to share a photo directly with others.
 
-# Project Structure
+# Description
 - **`main.dart`**: This is the entry point of the application where the app is initialized.
 - **`screens/`**: Contains the UI screens of the application.
 - **`controllers/`**: Contains GetX controllers for state management and logic.
