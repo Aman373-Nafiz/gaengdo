@@ -112,26 +112,26 @@ class PhotoController extends GetxController {
         throw Exception('Download failed');
       }
 
-      // Get temporary directory to save image
+    
       final directory = await getTemporaryDirectory();
       final imagePath = '${directory.path}/share_image_${DateTime.now().millisecondsSinceEpoch}.jpg';
       final imageFile = File(imagePath);
       
-      // Save image temporarily
+     
       await imageFile.writeAsBytes(response.bodyBytes);
 
-      // Close loading dialog
+    
       if (Get.isDialogOpen == true) {
         Get.back();
       }
 
-      // Share image
+     
       await Share.shareXFiles(
         [XFile(imagePath)],
-        text: 'Check out this image!',
+        text: 'Share out this image!',
       );
 
-      // Clean up temporary file
+   
       if (await imageFile.exists()) {
         await imageFile.delete();
       }

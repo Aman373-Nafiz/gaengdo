@@ -64,10 +64,11 @@ class Details extends StatelessWidget {
             ],
           ),
           body: PhotoView(
-            imageProvider: CachedNetworkImageProvider(imageURL),
-            minScale: PhotoViewComputedScale.contained * 0.8,
-            maxScale: PhotoViewComputedScale.covered * 1.8,
+            imageProvider: CachedNetworkImageProvider(imageURL, cacheKey: "unique_cache_key",),
+            minScale: PhotoViewComputedScale.contained ,
+            maxScale: PhotoViewComputedScale.covered * 3,
             initialScale: PhotoViewComputedScale.contained,
+              gestureDetectorBehavior: HitTestBehavior.deferToChild,
           ),
         ));
   }
