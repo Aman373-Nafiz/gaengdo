@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(GalleryService());
 
-    // Ensure data is fetched when the widget is built
+    
     controller.getData();
 
     return Scaffold(
@@ -90,9 +90,9 @@ class Home extends StatelessWidget {
             ),
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-            itemCount: controller.datas.length,
+           // itemCount: controller.datas.length,
             itemBuilder: (context, index) {
-              var item = controller.datas[index];
+              var item = controller.datas[index%controller.datas.length];
               return GalleryCard(item:item);
             },
           );
