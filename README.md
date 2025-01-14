@@ -6,9 +6,9 @@ Gaengdo is a Flutter project designed to display a gallery of photos fetched fro
 
 - Photo Gallery:
 
-  - • Fetches and displays photos from the Unsplash API.
+  - Fetches and displays photos from the Unsplash API.
 
-  - • Supports infinite scroll for seamless browsing.
+  - Supports infinite scroll for seamless browsing.
 
 - Full-Screen View:
 
