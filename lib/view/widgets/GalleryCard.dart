@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gaengdo/resources/color.dart';
 import 'package:gaengdo/view/Screen/Details.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GalleryCard extends StatelessWidget {
@@ -13,10 +11,37 @@ class GalleryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final String? imageUrl = item?.urls?.small;
+
+
+    if (imageUrl == null || imageUrl.isEmpty) {
+      return Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Center(
+          child: Text(
+            "Image unavailable",
+            style: GoogleFonts.roboto(
+              fontWeight: FontWeight.w400,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: () {
-       final imageUrl = item?.urls?.small;
-       Navigator.push(context, MaterialPageRoute(builder: (context)=> Details(imageURL: imageUrl)));
+       
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Details(imageURL: imageUrl),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -38,7 +63,7 @@ class GalleryCard extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: (item.width ?? 1) / (item.height ?? 1),
                 child: CachedNetworkImage(
-                  imageUrl: item.urls?.small ?? "",
+                  imageUrl: imageUrl,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Container(
                     color: Colors.grey[200],
@@ -61,7 +86,7 @@ class GalleryCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      item.user?.name ?? "",
+                      item.user?.name ?? "Unknown",
                       style: GoogleFonts.roboto(
                         fontWeight: FontWeight.w500,
                         color: Colors.black87,

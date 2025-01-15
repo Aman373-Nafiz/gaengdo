@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:gaengdo/data/models/gallery_model.dart';
 import 'package:gaengdo/util/constant.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 class GalleryService extends GetxController {
   RxBool isLoading = false.obs;
   var datas = <Gallery>[].obs;
+  final scrollController = ScrollController();
   Future<void> getData() async {
     try {
       var url = Uri.parse(api); 
@@ -20,6 +22,7 @@ class GalleryService extends GetxController {
         
       var decodedData = jsonDecode(response.body);
         datas.value = (decodedData as List).map((e) => Gallery.fromJson(e)).toList();
+      
       } else {
        
         print("Error: HTTP ${response.statusCode} - ${response.reasonPhrase}");
@@ -32,4 +35,6 @@ class GalleryService extends GetxController {
     
     }
   }
+
+   
 }

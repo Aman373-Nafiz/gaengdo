@@ -90,9 +90,12 @@ class Home extends StatelessWidget {
             ),
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-           // itemCount: controller.datas.length,
+            controller: controller.scrollController,
+           //itemCount: controller.datas.length,
+           
             itemBuilder: (context, index) {
-              var item = controller.datas[index%controller.datas.length];
+              int len = controller.datas.length;
+              var item = controller.datas[index%len];
               return GalleryCard(item:item);
             },
           );
